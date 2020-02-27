@@ -1,0 +1,22 @@
+import panda as pd
+import pandas as pd
+mydataset = pd.read_csv('realestate.csv')
+X = mydataset.iloc[:,2:3].values
+Y = mydataset.iloc[:,6:7].values
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+X_mean = np.mean(X)
+Y_mean = np.mean(Y)
+num = 0
+den = 0
+for i in range(len(X)):
+    num += (X[i]- X_mean)*(Y[i]-Y_mean )
+    den += (X[i]- X_mean)**2
+m= num / den
+c= Y_mean - m*X_mean
+print (m , c)
+Y_pred = m*X + c
+plt.scatter(X,Y)
+plt.plot([min(X),max(X)],[min(Y_pred), max(Y_pred)], color= 'red')
+plt.show()
